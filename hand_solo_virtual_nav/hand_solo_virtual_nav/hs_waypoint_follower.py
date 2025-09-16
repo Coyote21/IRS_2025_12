@@ -88,7 +88,7 @@ def main():
     node.get_logger().info(f'Waiting {wait_seconds:.0f} seconds at waypoint 1...')
 
     # Add some sort of delay functionality. Look up pythons time module
-    time.sleep(pause_delay)
+    time.sleep(wait_seconds)
 
     # 5. Go to other waypoints and delays if you want
     waypoints = [
