@@ -189,6 +189,14 @@ def generate_launch_description():
         output='screen'
     )
 
+    # Waypoint Follower
+    waypoint_follower = Node(
+        package='hand_solo_virtual_nav',
+        executable='hs_waypoint_follower',  # Entry point name registered in setup.py
+        name='hs_waypoint_follower',
+        output='screen'  # Ensures node log is visible in terminal
+    )
+
     return LaunchDescription([
         # Launch arguments
         declare_use_sim_time,
@@ -211,5 +219,8 @@ def generate_launch_description():
         lifecycle_manager_navigation,
         
         # Visualization
-        rviz
+        rviz,
+
+        # Waypoint Follower
+        waypoint_follower
     ])
