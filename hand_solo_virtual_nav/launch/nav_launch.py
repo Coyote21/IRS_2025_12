@@ -190,7 +190,7 @@ def generate_launch_description():
     )
 
     # Waypoint Follower
-    waypoint_follower = Node(
+    hs_waypoint_follower = Node(
         package='hand_solo_virtual_nav',
         executable='hs_waypoint_follower',  # Entry point name registered in setup.py
         name='hs_waypoint_follower',
@@ -222,5 +222,5 @@ def generate_launch_description():
         rviz,
 
         # Waypoint Follower
-        waypoint_follower
+        hs_waypoint_follower
     ])
