@@ -68,15 +68,15 @@ class HSWaypointRunner(Node):
     def run(self):
         # Pick Position
         pick_deg = [0.0, 45.0, 45.0, 0.0, 90.0, 0.0]
-        pick_rad = degrees_to_radians(pick_deg)
+        pick_rad = self.degrees_to_radians(pick_deg)
         
         # Carry Position
         carry_deg = [180.0, 0.0, 90.0, 0.0, 90.0, 0.0]
-        carry_rad = degrees_to_radians(carry_deg)
+        carry_rad = self.degrees_to_radians(carry_deg)
 
         # Place Position
         place_deg = [0.0, 40.0, 45.0, 5.0, 90.0, 0.0]
-        place_rad = degrees_to_radians(place_deg)
+        place_rad = self.degrees_to_radians(place_deg)
 
         # Waypoint 1
         if not self._send_and_wait([0.0, 0.0, 1.57, 0.0, 1.57, 0.0]): return
