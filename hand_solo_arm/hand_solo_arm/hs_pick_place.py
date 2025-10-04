@@ -61,7 +61,7 @@ class HSWaypointRunner(Node):
         res = res_fut.result()
         return bool(res and res.status == 4)  # 4 = STATUS_SUCCEEDED
 
-    def degrees_to_radians(degrees_list):
+    def degrees_to_radians(self, degrees_list: List[float]) -> List[float]:
         return [math.radians(deg) for deg in degrees_list]
 
     # --- script-style sequence (no arrays, no names) --------------------------
