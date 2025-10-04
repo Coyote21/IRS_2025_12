@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import time
+import math
 from typing import List
 
 import rclpy
@@ -60,31 +61,50 @@ class HSWaypointRunner(Node):
         res = res_fut.result()
         return bool(res and res.status == 4)  # 4 = STATUS_SUCCEEDED
 
+    def degrees_to_radians(degrees_list):
+        return [math.radians(deg) for deg in degrees_list]
+
     # --- script-style sequence (no arrays, no names) --------------------------
     def run(self):
+        # Pick Position
+        pick_deg = [0.0, 45.0, 45.0, 0.0, 90.0, 0.0]
+        pick_rad = degrees_to_radians(pick_deg)
+        
+        # Carry Position
+        carry_deg = [180.0, 0.0, 90.0, 0.0, 90.0, 0.0]
+        carry_rad = degrees_to_radians(carry_deg)
+
+        # Place Position
+        place_deg = [0.0, 40.0, 45.0, 5.0, 90.0, 0.0]
+        place_rad = degrees_to_radians(place_deg)
+
         # Waypoint 1
         if not self._send_and_wait([0.0, 0.0, 1.57, 0.0, 1.57, 0.0]): return
         time.sleep(10.0)
 
         # Waypoint 2
-        if not self._send_and_wait([0.785, -0.5, 1.2, 0.0, 1.0, 0.0]): return
+        #if not self._send_and_wait([0.785, -0.5, 1.2, 0.0, 1.0, 0.0]): return
+        if not self._send_and_wait(pick_rad): return
         time.sleep(5)
 
         # Waypoint 3
-        if not self._send_and_wait([0.785, -0.8, 1.4, 0.0, 0.8, 0.0]): return
+        #if not self._send_and_wait([0.785, -0.8, 1.4, 0.0, 0.8, 0.0]): return
+        if not self._send_and_wait(carry_rad): return
         time.sleep(1.5)
 
         # Waypoint 4
-        if not self._send_and_wait([0.785, -0.3, 1.2, 0.0, 1.0, 0.0]): return
+        #if not self._send_and_wait([0.785, -0.3, 1.2, 0.0, 1.0, 0.0]): return
+        if not self._send_and_wait(place_rad): return
         time.sleep(0.5)
 
         # Waypoint 5
-        if not self._send_and_wait([-0.785, -0.5, 1.2, 0.0, 1.0, 0.0]): return
+        #if not self._send_and_wait([-0.785, -0.5, 1.2, 0.0, 1.0, 0.0]): return
+        if not self._send_and_wait(carry_rad): return
         time.sleep(0.5)
 
         # Waypoint 6
-        if not self._send_and_wait([0.0, 0.0, 1.57, 0.0, 1.57, 0.0]): return
-        time.sleep(1.0)
+        #if not self._send_and_wait([0.0, 0.0, 1.57, 0.0, 1.57, 0.0]): return
+        #time.sleep(1.0)
 
         self.get_logger().info('Sequence complete ✅')
 
